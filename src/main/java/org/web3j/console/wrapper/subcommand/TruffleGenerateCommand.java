@@ -69,6 +69,11 @@ public class TruffleGenerateCommand implements Runnable {
             description = "Use Solidity types.")
     private boolean solidityTypes;
 
+    @Option(
+            names = {"-B", "--generateBoth"},
+            description = "Generate both send_ and call_ functions.")
+    private boolean generateBoth = false;
+
     @Override
     public void run() {
 
@@ -76,11 +81,11 @@ public class TruffleGenerateCommand implements Runnable {
 
         try {
             new TruffleJsonFunctionWrapperGenerator(
-                            jsonFileLocation.getAbsolutePath(),
-                            destinationDirLocation.getAbsolutePath(),
-                            basePackageName,
-                            useJavaNativeTypes,
-                            true)
+                    jsonFileLocation.getAbsolutePath(),
+                    destinationDirLocation.getAbsolutePath(),
+                    basePackageName,
+                    useJavaNativeTypes,
+                    generateBoth)
                     .generate();
         } catch (Exception e) {
             Console.exitError(e);

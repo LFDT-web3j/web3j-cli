@@ -18,7 +18,7 @@ mainClassName = 'org.web3j.console.Web3j'
 applicationName = 'web3j'
 
 ext {
-    web3jVersion = '4.12.2'
+    web3jVersion = '4.12.3'
     picocli = '4.7.6'
     slf4jVersion = '2.0.13'
     junitVersion = '5.9.3'
