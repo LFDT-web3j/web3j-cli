@@ -81,11 +81,11 @@ public class TruffleGenerateCommand implements Runnable {
 
         try {
             new TruffleJsonFunctionWrapperGenerator(
-                    jsonFileLocation.getAbsolutePath(),
-                    destinationDirLocation.getAbsolutePath(),
-                    basePackageName,
-                    useJavaNativeTypes,
-                    generateBoth)
+                            jsonFileLocation.getAbsolutePath(),
+                            destinationDirLocation.getAbsolutePath(),
+                            basePackageName,
+                            useJavaNativeTypes,
+                            generateBoth)
                     .generate();
         } catch (Exception e) {
             Console.exitError(e);

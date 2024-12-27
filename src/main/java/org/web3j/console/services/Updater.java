@@ -25,7 +25,7 @@ import static org.web3j.console.config.ConfigManager.config;
 
 public class Updater {
     private static final String GITHUB_API_URL =
-            "https://api.github.com/repos/hyperledger/web3j-cli/releases/latest";
+            "https://api.github.com/repos/hyperledger-web3j/web3j-cli/releases/latest";
 
     public static void promptIfUpdateAvailable() throws IOException {
         String version = CliVersion.getVersion(); // Get current version from CLI

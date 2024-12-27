@@ -3,7 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.6.2]() (Upcoming)
+# [1.6.3]() (Upcoming)
+
+### Bug Fixes
+
+*
+
+### Features
+
+* Updated web3j to 4.12.2 and removed Epirus [#116](https://github.com/hyperledger/web3j-cli/pull/116)
+* Updated web3j to 4.12.3 [#119](https://github.com/hyperledger/web3j-cli/pull/119)
+
+### BREAKING CHANGES
+
+*
+
+# [1.6.2]() (2024-12-27)
 
 ### Bug Fixes
 
