@@ -2,7 +2,7 @@
 FROM ubuntu as Build
 COPY . /root/app
 RUN apt-get update && apt-get install -y \
-	curl bash openjdk-17-jre \
+	curl bash openjdk-21-jre \
 	&& rm -rf /var/cache/apk/* \
 	&& curl -L get.web3j.io | sh \
 	&& /root/.web3j/web3j \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 FROM alpine
 COPY --from=Build /root /root/
-RUN apk add --no-cache bash openjdk17-jre\
+RUN apk add --no-cache bash openjdk21-jre\
 	&& rm -rf /var/cache/apk/* \
 	&& mkdir /opt/app
 WORKDIR /root/app

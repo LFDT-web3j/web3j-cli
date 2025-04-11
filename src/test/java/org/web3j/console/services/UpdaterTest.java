@@ -64,7 +64,7 @@ public class UpdaterTest {
                     .thenReturn("curl -L get.web3j.io | sh && source ~/.web3j/source.sh");
 
             wireMockServer.stubFor(
-                    get(urlEqualTo("/repos/hyperledger-web3j/web3j-cli/releases/latest"))
+                    get(urlEqualTo("/repos/LFDT-web3j/web3j-cli/releases/latest"))
                             .willReturn(
                                     aResponse()
                                             .withStatus(200)
@@ -92,7 +92,7 @@ public class UpdaterTest {
             ConfigManager.config = mockConfig;
 
             wireMockServer.stubFor(
-                    get(urlEqualTo("/repos/hyperledger-web3j/web3j-cli/releases/latest"))
+                    get(urlEqualTo("/repos/LFDT-web3j/web3j-cli/releases/latest"))
                             .willReturn(
                                     aResponse()
                                             .withStatus(200)

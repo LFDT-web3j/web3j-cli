@@ -15,7 +15,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-*
+* Migrate to java 21 [#121](https://github.com/LFDT-web3j/web3j-cli/pull/121)
 
 
 # [1.6.3](https://github.com/hyperledger-web3j/web3j-cli/releases/tag/v1.6.3) (2025-02-10)
