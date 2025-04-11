@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.6.4]() (Upcoming)
+# [1.7.1]() (Upcoming)
 
 ### Bug Fixes
 
@@ -11,7 +11,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* 
+*
+
+### BREAKING CHANGES
+
+*
+
+
+# [1.7.0](https://github.com/LFDT-web3j/web3j-cli/releases/tag/v1.7.0) (2025-04-11)
+
+### Bug Fixes
+
+*
+
+### Features
+
+* Update to web3j 4.14.0 Migrate to java 21 [#122](https://github.com/LFDT-web3j/web3j-cli/pull/122)
 
 ### BREAKING CHANGES
 
