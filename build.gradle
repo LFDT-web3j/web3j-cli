@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.24'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
     id "application"
     id "distribution"
     id "idea"
@@ -150,13 +150,13 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "21"
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "21"
 }
 
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 def generatedResources = "$buildDir/generated-resources/main"
 
