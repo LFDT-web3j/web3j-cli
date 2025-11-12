@@ -100,6 +100,12 @@ public class SolidityGenerateCommand implements Runnable {
             description = "Generate both send_ and call_ functions.")
     private boolean generateBoth = false;
 
+    @Option(
+            names = {"-r", "--abiFuncs"},
+            description = "ABI encoded function call getters.",
+            required = false)
+    private boolean abiFuncs = false;
+
     @Override
     public void run() {
         try {
@@ -120,7 +126,7 @@ public class SolidityGenerateCommand implements Runnable {
                             generateBoth,
                             Contract.class,
                             addressLength,
-                            false)
+                            abiFuncs)
                     .generate();
         } catch (Exception e) {
             exitError(e);
