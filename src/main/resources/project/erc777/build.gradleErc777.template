@@ -2,14 +2,15 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
     id 'application'
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id 'org.web3j' version '4.14.0'
+    id 'org.web3j' version '5.0.2'
 }
 
 group '<package_name>'
 version '0.1.0'
 
-sourceCompatibility = 21
+kotlin {
+    jvmToolchain(21)
+}
 
 repositories {
     mavenLocal()
@@ -30,9 +31,10 @@ node {
 }
 
 ext {
-    web3jVersion = '4.14.0'
+    web3jVersion = '5.0.2'
     logbackVersion = '1.5.6'
     klaxonVersion = '5.6'
+    junitVersion = '6.0.2'
 }
 
 dependencies {
@@ -57,25 +59,28 @@ jar {
 }
 
 application {
-    mainClassName = '<package_name>.<project_name>'
+    mainClass = '<package_name>.<project_name>'
 }
 
 test {
     useJUnitPlatform()
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "21"
-}
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "21"
-}
 
 solidity {
     evmVersion = 'constantinople'
 }
 
-shadowJar {
-    zip64 = true
+tasks.named("compileKotlin") {
+    dependsOn("generateContractWrappers")
+}
+tasks.named("compileJava") {
+    dependsOn("generateContractWrappers")
+}
+tasks.named("compileTestKotlin") {
+    dependsOn("generateTestContractWrappers")
+}
+tasks.named("compileTestJava") {
+    dependsOn("generateTestContractWrappers")
 }

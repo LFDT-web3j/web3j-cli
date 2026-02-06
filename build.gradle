@@ -2,30 +2,33 @@ import java.text.SimpleDateFormat
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
-    id "application"
-    id "distribution"
-    id "idea"
-    id "jacoco"
-    id "com.github.johnrengelman.shadow" version "8.1.1"
-    id "com.diffplug.spotless" version "6.25.0"
-    id "de.undercouch.download" version "4.1.2"
-    id "de.marcphilipp.nexus-publish" version "0.4.0"
-    id 'io.codearte.nexus-staging' version '0.30.0'
+    id 'application'
+    id 'distribution'
+    id 'idea'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.3.1'
+    id 'com.diffplug.spotless' version '7.2.1'
+    id 'de.undercouch.download' version '5.6.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+    id 'org.ajoberstar.git-publish' version '5.0.0'
 }
 
 description 'Web3j command line tools'
-mainClassName = 'org.web3j.console.Web3j'
-applicationName = 'web3j'
+application {
+    mainClass = 'org.web3j.console.Web3j'
+    applicationName = 'web3j'
+}
+
 
 ext {
-    web3jVersion = '4.14.0'
+    web3jVersion = '5.0.2'
     picocli = '4.7.6'
     slf4jVersion = '2.0.13'
-    junitVersion = '5.9.3'
+    junitVersion = '6.0.2'
     mockitoVersion = '5.12.0'
     mockitoInline = '5.2.0'
     gsonVersion = '2.11.0'
-    wireMockVersion = '3.6.0'
+    wireMockVersion = '3.13.2'
     kotlinLoggin = '3.0.5'
     dockerJavaVersion = '3.3.6'
     log4jVersion = '2.23.1'
@@ -44,16 +47,17 @@ apply {
         'javadoc',
         'repositories',
         'publish',
+        'junit',
         'spotless'
     ].each { buildScript ->
-        download {
-            src "https://raw.githubusercontent.com/web3j/build-tools/master/gradle/$buildScript/build.gradle"
+        download.run {
+            src "https://raw.githubusercontent.com/LFDT-web3j/web3j-build-tools/main/gradle/$buildScript/build.gradle"
             dest "$rootDir/gradle/$buildScript/build.gradle"
             overwrite false
             quiet true
             onlyIfModified true
+            apply from: "$rootDir/gradle/$buildScript/build.gradle"
         }
-        from("$rootDir/gradle/$buildScript/build.gradle")
     }
 }
 
@@ -61,16 +65,10 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven { url "https://dl.bintray.com/ethereum/maven/" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
     maven { url 'https://repo.gradle.org/gradle/libs-releases' }
 }
 
-test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
 
 distZip {
     archiveFileName.set("web3j-${project.version}.zip")
@@ -103,34 +101,42 @@ dependencies {
 
     runtimeOnly "org.slf4j:slf4j-nop:$slf4jVersion"
 
-    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "org.mockito:mockito-core:$mockitoVersion",
+    testImplementation "org.mockito:mockito-core:$mockitoVersion",
             "org.mockito:mockito-inline:$mockitoInline",
             "org.wiremock:wiremock:$wireMockVersion"
 }
 
+def mainResourcesDir = layout.buildDirectory.dir("resources/main")
+def versionPropsFile = mainResourcesDir.map { it.file("web3j-version.properties") }
 
-task createProperties(dependsOn: processResources) doLast {
-    // if resources dir is empty we need to create this ourselves
-    new File("$buildDir/resources/main/").mkdirs()
+tasks.register("createProperties") {
+    dependsOn(tasks.named("processResources"))
 
-    new File("$buildDir/resources/main/web3j-version.properties").withWriter { w ->
-        Properties p = new Properties()
-        p['version'] = project.version.toString()
-        p['timestamp'] = getTimestamp()
-        p.store w, null
+    outputs.file(versionPropsFile)
+
+    doLast {
+        def outFile = versionPropsFile.get().asFile
+        outFile.parentFile.mkdirs()
+
+        outFile.withWriter { w ->
+            def p = new Properties()
+            p["version"] = project.version.toString()
+            p["timestamp"] = getTimestamp()
+            p.store(w, null)
+        }
     }
 }
 
-def getTimestamp() {
+static def getTimestamp() {
     Date today = new Date()
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z")
     df.setTimeZone(TimeZone.getTimeZone("UTC"))
     return df.format(today)
 }
+
 classes { dependsOn createProperties }
 
-task shadowBugWorkaround(type: Jar) {
+tasks.register("shadowBugWorkaround", Jar) {
     archiveBaseName.set('nested-gradle-jar')
     from files(file("${rootDir}/gradle/wrapper/gradle-wrapper.jar"))
     destinationDirectory.set(file('build/shadow-bug-workaround'))
@@ -149,14 +155,9 @@ sourceSets {
     main.kotlin.srcDirs += 'src/main/kotlin'
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "21"
+kotlin {
+    jvmToolchain(21)
 }
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "21"
-}
-
-sourceCompatibility = 21
 
 def generatedResources = "$buildDir/generated-resources/main"
 
@@ -167,7 +168,7 @@ sourceSets {
     }
 }
 
-task generateVersionProperties {
+tasks.register("generateVersionProperties") {
     description 'Creates a version.properties file with build info that is added to the root of the JAR'
     doLast {
         new File(generatedResources).mkdirs()
@@ -176,6 +177,3 @@ task generateVersionProperties {
         generated.append("timestamp=${System.currentTimeMillis()}\n")
     }
 }
-
-tasks.named("spotlessJava").configure { dependsOn("javadoc","sourcesJar","compileTestJava","compileTestKotlin") }
-tasks.named("spotlessKotlin").configure { dependsOn("compileKotlin","sourcesJar","compileTestKotlin") }
