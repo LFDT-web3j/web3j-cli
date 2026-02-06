@@ -15,7 +15,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-*
+* Gradle 9 and web3j 5.0.2 [#127](https://github.com/LFDT-web3j/web3j-cli/pull/127)
 
 
 # [1.7.0](https://github.com/LFDT-web3j/web3j-cli/releases/tag/v1.7.0) (2025-04-11)
