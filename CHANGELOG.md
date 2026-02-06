@@ -3,15 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.7.1]() (Upcoming)
+# [1.8.0]() (Upcoming)
 
 ### Bug Fixes
 
-*
+* 
 
 ### Features
 
-*
+* Add --abiFuncs to generate solidity in cli tool [#126](https://github.com/LFDT-web3j/web3j-cli/pull/126)
 
 ### BREAKING CHANGES
 
