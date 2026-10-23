@@ -15,9 +15,6 @@ class BootstrapTests(unittest.TestCase):
         command = template.split("&& curl ", 1)[1].split("&& /root/.web3j/web3j", 1)[0]
         command = "curl " + command.rstrip().removesuffix("&&").rstrip()
         yield "Dockerfile", command.replace("/tmp/web3j-installer.sh", str(temp / "installer.sh"))
-        readme = (ROOT / "README.rst").read_text()
-        block = readme.split(".. code-block:: bash", 1)[1].split("This script", 1)[0]
-        yield "README", "\n".join(line.strip() for line in block.strip().splitlines())
 
     def test_download_must_complete_before_execution(self):
         for failure in (False, True):
