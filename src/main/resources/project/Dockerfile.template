@@ -2,9 +2,11 @@
 FROM ubuntu as Build
 COPY . /root/app
 RUN apt-get update && apt-get install -y \
-	curl bash openjdk-21-jre \
+	ca-certificates curl bash jq openjdk-21-jre \
 	&& rm -rf /var/cache/apk/* \
-	&& curl -L get.web3j.io | sh \
+	&& curl --disable --proto '=https' --proto-redir '=https' --fail --show-error --silent --location https://get.web3j.io -o /tmp/web3j-installer.sh \
+	&& sh /tmp/web3j-installer.sh \
+	&& rm -f /tmp/web3j-installer.sh \
 	&& /root/.web3j/web3j \
 	&& cd /root/app \
 	&& ./gradlew generateContractWrappers

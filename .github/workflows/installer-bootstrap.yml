@@ -1,0 +1,18 @@
+name: Installer bootstrap security
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Test generated Dockerfile and documented bootstrap
+        run: python -m unittest discover -s test -p 'test_installer_bootstrap.py' -v

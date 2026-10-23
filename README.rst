@@ -37,7 +37,9 @@ On Linux/macOS, in a terminal, run the following command:
 
 .. code-block:: bash
 
-	curl -L get.web3j.io | sh
+	installer=$(mktemp) &&
+	curl --disable --proto '=https' --proto-redir '=https' --fail --show-error --silent --location https://get.web3j.io -o "$installer" &&
+	sh "$installer" && rm -f "$installer"
 
 This script will not work if Web3j has been installed using Homebrew on macOS.
 
