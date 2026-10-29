@@ -37,7 +37,7 @@ On Linux/macOS, in a terminal, run the following command:
 
 .. code-block:: bash
 
-	curl -L get.web3j.io | sh
+	curl -L https://get.web3j.io | sh
 
 This script will not work if Web3j has been installed using Homebrew on macOS.
 
