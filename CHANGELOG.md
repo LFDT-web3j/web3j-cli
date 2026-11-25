@@ -3,7 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.8.0]() (Upcoming)
+# [1.9.0](https://github.com/LFDT-web3j/web3j-cli/releases/tag/v1.9.0) (Upcoming)
+
+### Bug Fixes
+
+*
+
+### Features
+
+* Upgrade to Web3j 6.1.0
+
+### BREAKING CHANGES
+
+* 
+
+# [1.8.0](https://github.com/LFDT-web3j/web3j-cli/releases/tag/v1.8.0) (2026-02-09)
 
 ### Bug Fixes
 
