@@ -90,7 +90,7 @@ test {
 
 
 solidity {
-    evmVersion = 'constantinople'
+    evmVersion = 'cancun'
 }
 
 tasks.named("compileKotlin") {

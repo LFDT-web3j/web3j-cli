@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class NewProjectCommandTest extends ClassExecutor {
     private static String tempDirPath;
 
-    @BeforeAll
-    static void setUpStreams() {
+    @BeforeEach
+    void setUpStreams() {
         tempDirPath = Folders.tempBuildFolder().getAbsolutePath();
     }
 

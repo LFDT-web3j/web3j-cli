@@ -50,9 +50,11 @@ public abstract class AbstractProjectCommand {
         projectOptions.projectName =
                 projectOptions.projectName.substring(0, 1).toUpperCase()
                         + projectOptions.projectName.substring(1);
-        if (new File(projectOptions.projectName).exists()) {
+        final File projectDirectory =
+                new File(projectOptions.outputDir, projectOptions.projectName);
+        if (projectDirectory.exists()) {
             if (projectOptions.overwrite || interactiveOptions.overrideExistingProject()) {
-                ProjectUtils.deleteFolder(new File(projectOptions.projectName).toPath());
+                ProjectUtils.deleteFolder(projectDirectory.toPath());
             } else {
                 exitError("Project creation was canceled.");
             }
