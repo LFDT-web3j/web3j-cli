@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.3.10'
     id 'application'
     id 'distribution'
     id 'idea'
@@ -21,7 +21,7 @@ application {
 
 
 ext {
-    web3jVersion = '5.0.2'
+    web3jVersion = '6.1.0'
     picocli = '4.7.6'
     slf4jVersion = '2.0.13'
     junitVersion = '6.0.2'
